@@ -14,16 +14,26 @@ Este projeto é uma API REST desenvolvida com **Spring Boot** para gerenciamento
 ## Estrutura do Projeto
 
 src/
+
 └── main/
+
 ├── java/
-│ └── alunoonline.alunoonline/
-│ ├── config/
-│ ├── controller/
-│ ├── dtos/
-│ ├── enums/
-│ ├── model/
-│ ├── repository/
-│ └── service/
+
+    └── alunoonline.alunoonline/
+    
+        ├── config/
+    
+        ├── controller/
+    
+        ├── dtos/
+    
+        ├── enums/
+    
+        ├── model/
+    
+        ├── repository/
+    
+        └── service/
 └── resources/
 
 ## Funcionalidades da API
