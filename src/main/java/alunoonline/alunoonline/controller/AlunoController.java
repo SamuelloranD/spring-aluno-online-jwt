@@ -1,6 +1,7 @@
 package alunoonline.alunoonline.controller;
 
 
+import alunoonline.alunoonline.dtos.DadosCriacaoAlunoDTO;
 import alunoonline.alunoonline.model.Aluno;
 import alunoonline.alunoonline.service.AlunoService;
 import jakarta.persistence.Id;
@@ -21,8 +22,8 @@ public class AlunoController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void criarAluno(@RequestBody Aluno aluno) {
-        alunoService.criarAluno(aluno);
+    public void criarAluno(@RequestBody DadosCriacaoAlunoDTO dados) {
+        alunoService.criarAluno(dados);
     }
 
     @GetMapping
