@@ -1,5 +1,6 @@
 package alunoonline.alunoonline.controller;
 
+import alunoonline.alunoonline.dtos.CriarDisciplinaDTO;
 import alunoonline.alunoonline.model.Disciplina;
 import alunoonline.alunoonline.model.Professor;
 import alunoonline.alunoonline.service.DisciplinaService;
@@ -20,7 +21,7 @@ public class DisciplinaController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void criarDisciplina(@RequestBody Disciplina disciplina){
+    public void criarDisciplina(@RequestBody CriarDisciplinaDTO disciplina){
         disciplinaService.criarDisciplina(disciplina);
     }
 

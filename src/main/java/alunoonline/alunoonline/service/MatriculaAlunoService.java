@@ -3,6 +3,7 @@ package alunoonline.alunoonline.service;
 import alunoonline.alunoonline.dtos.AtualizarNotasRequestDTO;
 import alunoonline.alunoonline.dtos.DisciplinasAlunoResponseDTO;
 import alunoonline.alunoonline.dtos.HistoricoAlunoResponseDTO;
+import alunoonline.alunoonline.dtos.MatricularAlunoDTO;
 import alunoonline.alunoonline.enums.MatriculaAlunoStatusEnum;
 import alunoonline.alunoonline.model.MatriculaAluno;
 import alunoonline.alunoonline.repository.MatriculaAlunoRepository;
@@ -23,19 +24,24 @@ public class MatriculaAlunoService {
     @Autowired
     MatriculaAlunoRepository matriculaAlunoRepository;
 
-    public void criarMatricula(MatriculaAluno matriculaAluno) {
-        matriculaAluno.setStatus(MatriculaAlunoStatusEnum.MATRICULADO);
-        matriculaAlunoRepository.save(matriculaAluno);
+    public void criarMatricula(MatricularAlunoDTO matriculaAluno) {
+
+        MatriculaAluno novaMatriculaAluno = new MatriculaAluno();
+        novaMatriculaAluno.setAluno(matriculaAluno.aluno());
+        novaMatriculaAluno.setDisciplina(matriculaAluno.disciplina());
+        novaMatriculaAluno.setNota1(matriculaAluno.nota1());
+        novaMatriculaAluno.setNota2(matriculaAluno.nota2());
+
+        matriculaAlunoRepository.save(novaMatriculaAluno);
     }
 
     public void trancarMatricula(Long matriculaAlunoId) {
-        // Antes de trancar, verifica se a matrícula existe
+
         MatriculaAluno matriculaAluno = matriculaAlunoRepository.findById(matriculaAlunoId)
                 .orElseThrow(() ->
                 new ResponseStatusException(HttpStatus.NOT_FOUND,
                         "Matrícula Aluno não encontrada"));
 
-        // Só vai permitir trancar, se o status ATUAL for MATRICULADO
 
         if (matriculaAluno.getStatus()
                 .equals(MatriculaAlunoStatusEnum.MATRICULADO)) {

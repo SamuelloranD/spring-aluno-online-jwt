@@ -1,5 +1,6 @@
 package alunoonline.alunoonline.controller;
 
+import alunoonline.alunoonline.dtos.CriarProfessorDTO;
 import alunoonline.alunoonline.model.Aluno;
 import alunoonline.alunoonline.model.Professor;
 import alunoonline.alunoonline.service.ProfessorService;
@@ -19,7 +20,7 @@ public class ProfessorController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void criarProfessor(@RequestBody Professor professor) {
+    public void criarProfessor(@RequestBody CriarProfessorDTO professor) {
         professorService.criarProfessor(professor);
     }
 

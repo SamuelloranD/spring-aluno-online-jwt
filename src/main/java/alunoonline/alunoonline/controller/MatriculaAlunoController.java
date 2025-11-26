@@ -2,6 +2,7 @@ package alunoonline.alunoonline.controller;
 
 import alunoonline.alunoonline.dtos.AtualizarNotasRequestDTO;
 import alunoonline.alunoonline.dtos.HistoricoAlunoResponseDTO;
+import alunoonline.alunoonline.dtos.MatricularAlunoDTO;
 import alunoonline.alunoonline.model.MatriculaAluno;
 import alunoonline.alunoonline.service.MatriculaAlunoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +19,7 @@ public class MatriculaAlunoController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void criarMatricula(@RequestBody MatriculaAluno matriculaAluno) {
+    public void criarMatricula(@RequestBody MatricularAlunoDTO matriculaAluno) {
         matriculaAlunoService.criarMatricula(matriculaAluno);
     }
 
