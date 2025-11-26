@@ -1,152 +1,129 @@
-# Spring_Atividade_Aluno
+Spring_Atividade_Aluno – API com JWT, Roles e MySQL
 
-Este projeto é uma API REST desenvolvida com **Spring Boot** para gerenciamento de uma instituição de ensino, permitindo o controle de **alunos, professores, disciplinas, matrículas e históricos escolares**.
+Este projeto é uma API REST desenvolvida com Spring Boot, voltada para o gerenciamento acadêmico de uma instituição de ensino.
+Ela permite controlar alunos, professores, disciplinas, matrículas, notas e histórico escolar, além de possuir autenticação e autorização com JWT, e gerenciamento de roles (ALUNO, PROFESSOR e ADMIN).
 
-## Tecnologias Utilizadas
+🚀 Tecnologias Utilizadas
 
-- Java 17
-- Spring Boot
+- Java 21
+- Spring Boot 
+- Spring Security + JWT
 - Spring Data JPA
-- **PostgreSQL**
+- MySQL
+- Flyway
 - Swagger (OpenAPI)
 - Maven
 
-## Estrutura do Projeto
+📁 Estrutura do Projeto
 
-src/
+![img.png](img.png)
 
-└── main/
+🔐 Autenticação e Autorização (JWT)
 
-├── java/
+- A API utiliza Spring Security + JWT para proteger os endpoints.
 
-    └── alunoonline.alunoonline/
-    
-        ├── config/
-    
-        ├── controller/
-    
-        ├── dtos/
-    
-        ├── enums/
-    
-        ├── model/
-    
-        ├── repository/
-    
-        └── service/
-└── resources/
+🔑 Como funciona
 
-## Funcionalidades da API
+- O usuário acessa /auth/login com login e senha.
+- Se for válido, a API retorna um token JWT.
+- O token deve ser enviado no header:
+- Authorization: Bearer SEU_TOKEN
+- As roles definem o que cada um pode acessar:
 
-- 📘 CRUD de Alunos
-- 🧑‍🏫 CRUD de Professores
-- 📚 CRUD de Disciplinas
-- 📥 Matrícula de Alunos
-- 📝 Atualização de notas
-- 📄 Histórico escolar
-- 🌐 Integração com Swagger UI
+🧩 Roles disponíveis
 
----
+ROLE_ADMIN,
+ROLE_PROFESSOR,
+ROLE_ALUNO
 
-## Documentação da API
+Cada endpoint pode ser restrito a um ou mais papéis.
 
-A documentação da API pode ser acessada via Swagger após rodar o projeto:
+ADMIN
+- CRUD de Aluno, Professor e Disciplinar
+- Matricular Alunos em discipinas
 
-http://localhost:8080/swagger-ui/index.html
+👨‍🎓 Alunos
 
-## Testes com Postman
+- Emitir histórico
 
-O arquivo de testes para o Postman está incluído na raiz do projeto com o nome:
+🧑‍🏫 Professores
 
-[Alunos_Casa.postman_collection.json](Alunos_Casa.postman_collection.json)
+- Atualizar notas
 
 
-Você pode importá-lo diretamente no Postman para testar todos os endpoints da API.
+📚 Funcionalidades da API
 
-## Banco de Dados (PostgreSQL)
+🔐 Autenticação com JWT
 
-O dump (export) do banco de dados PostgreSQL está incluído na raiz com o nome:
+Login
 
-[dump-aluno_online_casa-202505270019.sql](dump-aluno_online_casa-202505270019.sql)
+Criação de usuários (Flyway inicial já insere um ADMIN)
 
-------------------------------------
+🌐 Documentação Swagger
 
-## Como rodar o projeto localmente
-Pré-requisitos:
-Java 17+
+Acesse após rodar o projeto:
+
+👉 http://localhost:8080/swagger-ui/index.html
+
+🧪 Testes com Postman
+
+Arquivo incluso na raiz do projeto:
+
+📁 Alunos_Casa.postman_collection.json
+
+Basta importar no Postman.
+
+🗄️ Banco de Dados – MySQL + Flyway
+
+Scripts de criação automática:
+
+📂 src/main/resources/db.migrations/
+
+Exemplos no projeto:
+
+V1__create_table_usuarios.sql
+
+V2__create_table_alunos.sql
+
+V3__create_table_professores.sql
+
+V4__create_table_disciplinas.sql
+
+V5__create_table_matriculas.sql
+
+V6__inserir_usuario_admin.sql
+
+Sempre que o projeto inicia, o Flyway executa as versões novas.
+
+⚙️ Como rodar o projeto
+Pré-requisitos
+
+Java 21
+
 Maven
-PostgreSQL
 
-# 1. Clone o repositório
-git clone https://github.com/seu-usuario/Spring_Atividade_Aluno.git
+MySQL
 
-# 2. Acesse a pasta do projeto
-cd Spring_Atividade_Aluno
+1. Clone o repositório
+   git clone https://github.com/SamuelloranD/spring-aluno-online-jwt.git
 
-# 3. Configure o banco de dados em application.properties:
+2. Configure o application.properties
+   spring.datasource.url=jdbc:mysql://localhost:3306/alunoonline?useSSL=false&serverTimezone=UTC
+   spring.datasource.username=seu_usuario
+   spring.datasource.password=sua_senha
 
-spring.datasource.url=jdbc:postgresql://localhost:5432/seubanco
-spring.datasource.username=seu_usuario
-spring.datasource.password=sua_senha
+spring.jpa.hibernate.ddl-auto=none
+spring.jpa.show-sql=true
 
-# 4. Execute a aplicação
-./mvnw spring-boot:run
+spring.flyway.enabled=true
+spring.flyway.locations=classpath:db.migrations
 
-Depois de iniciado, acesse:
-http://localhost:8080
+api.security.token.secret=seu_segredo_jwt
 
-Desenvolvido por:
-Samuel Lorand.
-
+3Rodar o projeto
+   ./mvnw spring-boot:run
 
 
-# Spring_Atividade_Aluno
+👨‍💻 Desenvolvido por
 
-Postman criarAluno:
-![Captura de tela 2025-04-01 150520](https://github.com/user-attachments/assets/0b63d6dc-c022-4ed5-85bf-221dd84d66aa)
-
-DBeaver criarAluno:
-![Desktop Screenshot 2025 04 01 - 15 04 24 49](https://github.com/user-attachments/assets/e2fe8a29-db3c-4885-8be2-6e289e30c7e8)
-
-Postman listarAlunos:
-![image](https://github.com/user-attachments/assets/a5d20cf1-529b-4c8c-82ee-1bd465226d25)
-
-DBeaver listarAlunos:
-![image](https://github.com/user-attachments/assets/fbe46d49-157d-4207-a714-07553cb6adc3)
-
-Postman buscarAlunoPorId:
-![image](https://github.com/user-attachments/assets/0201a13f-c289-410e-8708-0a9fae390d57)
-
-Postman deletarAlunoPorId:
-![image](https://github.com/user-attachments/assets/63cbd953-9e2d-44f5-b8a3-1da75ff6bb00)
-
-DBeaver aluno deletado:
-![image](https://github.com/user-attachments/assets/863a3f29-da5d-4361-9ee3-c788b3defca3)
-
-Postman criarDisciplina:
-![image](https://github.com/user-attachments/assets/64f6444b-f992-4499-8cba-e9ccb0326fd9)
-
-DBeaver criarDisciplina:
-![image](https://github.com/user-attachments/assets/abd1a6d5-0e1b-4dcb-a50a-de5314d537fa)
-
-Postman listarDiscipinas:
-![image](https://github.com/user-attachments/assets/a732b621-f2a6-4bda-8c93-b3b7f242d9a9)
-
-Postman listarDisciplinasPorId:
-![image](https://github.com/user-attachments/assets/a895afe2-d238-4e2a-b139-5b8ff4b8bf42)
-
-Postman deletarDisciplinaPorId:
-![image](https://github.com/user-attachments/assets/ac2d1a78-bab5-4dda-94bc-17fff822976b)
-
-DBeaver deletarDisciplinaPorId:
-![image](https://github.com/user-attachments/assets/494ce49c-1b86-4414-b798-951937a6d0b5)
-
-Postman atualizarDisciplinaPorId:
-![image](https://github.com/user-attachments/assets/3fbdf1ba-c884-4a6d-9772-7c51a0838e47)
-
-DBeaver atualizarDisciplinaPorId:
-![image](https://github.com/user-attachments/assets/8b29fe1b-fe68-457d-9ef3-a8c4c91f4d00)
-
-Swagger trancarMatricula
-![image](https://github.com/user-attachments/assets/b3fbfb7c-4318-4d6e-b207-5983f56129ac)
-
+Samuel Lorand
